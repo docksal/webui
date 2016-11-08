@@ -29,6 +29,8 @@ RUN openssl req -batch -nodes -newkey rsa:2048 -keyout /etc/nginx/server.key -ou
     openssl x509 -req -days 365 -in /tmp/server.csr -signkey /etc/nginx/server.key -out /etc/nginx/server.crt; rm /tmp/server.csr
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
+RUN echo "docksal:$(openssl passwd -apr1 docksal)" >> /etc/nginx/.htpasswd
+
 COPY conf/supervisord.conf /etc/supervisor.d/webui.ini
 
 EXPOSE 80
