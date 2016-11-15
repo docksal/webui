@@ -21,7 +21,7 @@
               <div{% if containers['projects'][project][id]['State'] == 'running' %} class="service {{ containers['projects'][project][id]['Labels']['com.docker.compose.service'] }} running bg-success"{% else %} class="service {{ containers['projects'][project][id]['Labels']['com.docker.compose.service'] }} not-running bg-danger"{% endif %} style="margin-bottom: 1em; padding: 1em">
                 <p class="name">
                   <strong>Name:</strong> {{ containers['projects'][project][id]['Names']|first }}
-                  {% if containers['projects'][project][id]['State'] == 'running' %}
+                  {% if containers['projects'][project][id]['State'] == 'running' and request.args.get("stats") == 'true' %}
                     <span class="badge">CPU: {{ containers['projects'][project][id]['Stats']['cpu'] }}</span>
                     <span class="badge">Memory: {{ containers['projects'][project][id]['Stats']['memory'] }}</span>
                   {% endif %}
@@ -104,7 +104,7 @@
         <tr{% if containers['docksal'][id]['State'] == 'running' %} class="success"{% else %} class="danger"{% endif %}>
           <td>
             {{ containers['docksal'][id]['Names']|first }}
-            {% if containers['docksal'][id]['State'] == 'running' %}
+            {% if containers['docksal'][id]['State'] == 'running' and request.args.get("stats") == 'true' %}
               <span class="badge">CPU: {{ containers['docksal'][id]['Stats']['cpu'] }}</span>
               <span class="badge">Memory: {{ containers['docksal'][id]['Stats']['memory'] }}</span>
             {% endif %}
@@ -189,7 +189,7 @@
         <tr{% if containers['other'][id]['State'] == 'running' %} class="success"{% else %} class="danger"{% endif %}>
           <td>
             {{ containers['other'][id]['Names']|first }}
-            {% if containers['other'][id]['State'] == 'running' %}
+            {% if containers['other'][id]['State'] == 'running'  and request.args.get("stats") == 'true' %}
               <span class="badge">CPU: {{ containers['other'][id]['Stats']['cpu'] }}</span>
               <span class="badge">Memory: {{ containers['other'][id]['Stats']['memory'] }}</span>
             {% endif %}
